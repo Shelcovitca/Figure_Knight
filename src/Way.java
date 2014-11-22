@@ -10,7 +10,7 @@ public class Way {
         int[] possibleX = {-1, 1, 2, 2, 1, -1, -2, -2};
         int[] possibleY = {2, 2, 1, -1, -2, -2, -1, 1};
         int size = 1000;
-        int chessboard[][] = new int[size][size];  // create 2-dimensional array
+        int chessboard[][] = new int[size][size];
         int currentPointValue;
 
         Point startPoint = new Point(0, 0);
@@ -26,25 +26,25 @@ public class Way {
         }
 
         LinkedList<Point> possibleMoves = new LinkedList<Point>();
-        possibleMoves.add(startPoint); // добавляем точку startPoint в начало очереди
-        chessboard[startPoint.getX()][startPoint.getY()] = 0; // записываем в точку число 0
-        while (!possibleMoves.isEmpty()) { // покуда очередь не пустая
-            currentPoint = possibleMoves.pop(); // забираем точку currentPoint из конца очереди
+        possibleMoves.add(startPoint);
+        chessboard[startPoint.getX()][startPoint.getY()] = 0;
+        while (!possibleMoves.isEmpty()) {
+            currentPoint = possibleMoves.pop();
 
-            if (currentPoint.getX() == finishPoint.getX()) { // если точка currentPoint является точкой finishPoint
+            if (currentPoint.getX() == finishPoint.getX()) {
                 if (currentPoint.getY() == finishPoint.getY()) {
-                    System.out.println("Success in " + chessboard[currentPoint.getX()][currentPoint.getY()]); // это успех!
+                    System.out.println("Success in " + chessboard[currentPoint.getX()][currentPoint.getY()]);
                     System.out.println();
                     break;
                 }
             }
             for (int i = 0; i < 8; i++) {
 
-                nextPoint = new Point(currentPoint.getX() + possibleX[i], currentPoint.getY() + possibleY[i]); // создаем следующую точку nextPoint для очереди
-                if (correctBorder(nextPoint.getX(), nextPoint.getY(), size)) { // если точка nextPoint не выходит за пределы массива
-                    if (chessboard[nextPoint.getX()][nextPoint.getY()] == -1) { // если в точке nextPoint мы еще не были (точка заполнена первоначальным -1)
-                        possibleMoves.add(nextPoint); // добавляем эту точку nextPoint в начало очереди
-                        chessboard[nextPoint.getX()][nextPoint.getY()] = chessboard[currentPoint.getX()][currentPoint.getY()] + 1; // помечаем точку nextPoint как посещенную, заполнив числом на 1 больше (т.е. 1)
+                nextPoint = new Point(currentPoint.getX() + possibleX[i], currentPoint.getY() + possibleY[i]);
+                if (correctBorder(nextPoint.getX(), nextPoint.getY(), size)) {
+                    if (chessboard[nextPoint.getX()][nextPoint.getY()] == -1) {
+                        possibleMoves.add(nextPoint);
+                        chessboard[nextPoint.getX()][nextPoint.getY()] = chessboard[currentPoint.getX()][currentPoint.getY()] + 1;
                     }
                 }
 
@@ -66,7 +66,7 @@ public class Way {
             }
         }
 
-    static boolean correctBorder (int x, int y, int size) { // check points validation according to chessboard borders
+    static boolean correctBorder (int x, int y, int size) {
         if (x < 0 || y < 0)
             return false;
         if (x >= size || y >= size)
